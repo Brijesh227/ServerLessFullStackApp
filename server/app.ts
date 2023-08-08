@@ -1,22 +1,18 @@
-import express, { Express, Request, Response } from "express";
+import express from 'express';
 import connectDb from "./config/dbConfig";
-import dotenv from "dotenv";
+import authRoute from "./routes/auth";
 
+import dotenv from "dotenv";
 dotenv.config();
 
-const app: Express = express();
-const port = process.env.PORT;
+const app: express.Application = express();
 
-async function startServer() {
+export default async function startServer() {
     try {
         await connectDb();
-
-        app.listen(port, () => {
-            console.log(`server listening on port: ${port}`);
-        });
+        app.use("/auth", authRoute);
+        return app;
     } catch (error) {
-        console.log("error while starting server", error);
+        throw new Error(`${error}`);
     }
 }
-
-startServer();
