@@ -4,10 +4,10 @@
   "description": "",
   "main": "dist/local.js",
   "scripts": {
-    "build": "npm run cleanup && tsc",
-    "cleanup": "rm -rf dist && find . -name '*.js' -not -path './node_modules/*' -delete ",
-    "dev": "concurrently \"npx tsc --watch\" \"nodemon -q ./dist/local.js\"",
-    "start:dev": "npm run build && nodemon dist/local.js"
+    "build": "npm run cleanup && tsc --watch",
+    "cleanup": "rimraf dist && find . -name '*.js' -not -path './node_modules/*' -delete ",
+    "dev": "npx tsc --watch && node dist/lambda.js",
+    "start:dev": "concurrently \"npm run build\" \"nodemon dist/local.js\""
   },
   "author": "",
   "license": "ISC",
@@ -19,6 +19,7 @@
     "jsonwebtoken": "^9.0.1",
     "jwk-to-pem": "^2.0.5",
     "mongoose": "^7.4.1",
+    "rimraf": "^5.0.1",
     "serverless-http": "^3.2.0"
   },
   "devDependencies": {

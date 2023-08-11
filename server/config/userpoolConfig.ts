@@ -1,7 +1,5 @@
 import {
 	CognitoUserPool,
-	CognitoUserAttribute,
-	CognitoUser,
 	ICognitoUserPoolData
 } from 'amazon-cognito-identity-js';
 

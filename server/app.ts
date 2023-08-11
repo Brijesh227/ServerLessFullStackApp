@@ -10,6 +10,7 @@ const app: express.Application = express();
 export default async function startServer() {
     try {
         await connectDb();
+        app.use(express.json())
         app.use("/auth", authRoute);
         return app;
     } catch (error) {
