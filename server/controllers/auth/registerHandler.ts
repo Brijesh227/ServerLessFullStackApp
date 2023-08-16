@@ -3,7 +3,7 @@ import errorGenerator from "../../utility/errorgenerator";
 import User from "../../models/userSchema";
 import registerUser from "../../services/auth/register";
 
-const registerHandler = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
+const registerHandler = async (req: Request, res: Response, next: NextFunction): Promise< Response > => {
     try {
         const { userName, password } = req.body;
         if (!userName || !password) {
@@ -11,14 +11,14 @@ const registerHandler = async (req: Request, res: Response, next: NextFunction):
         }
 
         const registeredUser = await registerUser(userName, password);
-        console.log('registeredUser', registeredUser);
+        console.log('registeredUser', registeredUser?.UserSub);
 
         const newUser = await User.create({
-            "username": registeredUser?.getUsername(),
-            "email": registeredUser?.getUsername()
+            "username": registeredUser?.UserSub,
+            "email": userName
         })
         console.log('user in database', newUser);
-        res.status(200).send(`${newUser.username} created successfully`);
+        return res.status(200).send(`${newUser.email} created successfully`);
     } catch (error: any) {
         console.log("error while creating user", error);
         return errorGenerator(res, 500, `${error?.message}`);

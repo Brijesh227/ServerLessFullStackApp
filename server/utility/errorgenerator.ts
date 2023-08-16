@@ -1,9 +1,9 @@
 import { Response } from "express";
 
-export default function errorGenerator(res: Response, code: number, msg?: string) {
+export default function errorGenerator(res: Response, code: number, msg?: string): Response {
     if (res && code && msg) {
-        res.status(code).send({ errorMessage: msg });
+        return res.status(code).send({ errorMessage: msg });
     } else {
-        res.sendStatus(code);
+        return res.sendStatus(code);
     }
 }
