@@ -3,8 +3,7 @@ import errorGenerator from "../../utility/errorgenerator";
 import User from "../../models/userSchema";
 import verifyUser from "../../services/auth/verifyUser";
 
-const verifyUserHandler = async (req: Request, res: Response, next: NextFunction): Promise< Response > => {
-    console.log("lol herr verify");
+const verifyUserHandler = async (req: Request, res: Response, next: NextFunction): Promise<Response> => {
     try {
         const { code, userName } = req.body;
         if (!code) {

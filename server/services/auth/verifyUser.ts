@@ -1,7 +1,7 @@
 import cognitoIdentityServiceProvider from '../../config/cognitoConfig';
 import { ConfirmSignUpRequest, ConfirmSignUpResponse } from 'aws-sdk/clients/cognitoidentityserviceprovider';
 
-const verifyUser = (code: string, userName: string): Promise<ConfirmSignUpResponse | undefined> => {
+const verifyUser = (code: string, userName: string): Promise<ConfirmSignUpResponse | boolean> => {
     const params: ConfirmSignUpRequest = {
         ClientId: process.env.CLIENT_ID ?? 'f3756goql6p9pvmj67u05coq7',
         Username: userName,
@@ -14,7 +14,7 @@ const verifyUser = (code: string, userName: string): Promise<ConfirmSignUpRespon
                 reject(err);
             }
             console.log('verified user result' + JSON.stringify(result));
-            resolve(result);
+            resolve(true);
         });
     })
 }
