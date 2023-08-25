@@ -2,7 +2,7 @@
   "name": "serverless-food-order-system",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/local.js",
+  "main": "dist/app.js",
   "scripts": {
     "build": "npm run cleanup && tsc --watch",
     "cleanup": "rimraf dist && find . -name '*.js' -not -path './node_modules/*' -delete ",

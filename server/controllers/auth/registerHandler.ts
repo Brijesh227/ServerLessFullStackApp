@@ -11,11 +11,11 @@ const registerHandler = async (req: Request, res: Response, next: NextFunction):
         }
 
         const registeredUser = await registerUser(userName, password);
-        console.log('registeredUser', registeredUser?.UserSub);
+        console.log('registeredUser', registeredUser);
 
         const newUser = await User.create({
             "username": registeredUser?.UserSub,
-            "email": ""
+            "email": userName
         });
         console.log('user in database', newUser);
         return res.status(200).send(`${newUser.username} created successfully`);

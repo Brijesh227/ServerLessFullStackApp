@@ -10,14 +10,19 @@ const verifyUserHandler = async (req: Request, res: Response, next: NextFunction
             return errorGenerator(res, 400, "code is not provided.")
         }
 
-        const isVerified = await verifyUser(code, userName);
+        await verifyUser(code, userName);
+        const user = await User.findOne({
+            email : userName
+        });
 
-        // const newUser = await User.create({
-        //     "username": registeredUser?.getUsername(),
-        //     "email": registeredUser?.getUsername()
-        // })
-        console.log('user verification', isVerified);
-        return res.status(200).send(`verified successfully`);
+        if(!user) {
+            return errorGenerator(res, 500, `user not found`);
+        } else {
+            user.isVerified = true;
+            await user.save();
+            console.log('user verification successfully');
+            return res.status(200).send(`verified successfully`);
+        }
     } catch (error: any) {
         console.log("error while creating user", error);
         return errorGenerator(res, 500, `${error?.message}`);
